@@ -1,4 +1,4 @@
-The Personal Budgeting Project involves analyzing and optimizing personal financial data through data cleaning, exploratory analysis, and visualization. The project is structured into three key components:
+The Financial Budgeting Project involves analyzing and optimizing personal financial data through data cleaning, exploratory analysis, and visualization. The project is structured into three key components:
 
 Data Cleaning (My Finances(Cleaning))
   This phase includes the preparation of raw financial data for analysis by:
