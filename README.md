@@ -20,7 +20,7 @@ Below are the questions I want to answer in my project:
 For my deep dive into the financial budgeting data, I harnessed the power of several key tools:
 
 - **SQL**: The main analysis tool used to clean and analyze the data. I used the following SQL techniques:
-- - **CTE's**
+  - **CTE's**
   - **Window Functions**
   - **Date and Time Functions**
   - **Conditional Logic**
@@ -36,23 +36,20 @@ This section outlines the steps taken to prepare the data for analysis, ensuring
 
 ## Import & Clean Up Data
 
-I start by importing necessary libraries and loading the dataset, followed by initial data cleaning tasks to ensure data quality.
+The data cleaning process involved meticulously preparing both the expenses and income datasets to ensure accuracy, consistency, and usability for analysis.
 
-```python
-# Importing Libraries
-import ast
-import pandas as pd
-import seaborn as sns
-from datasets import load_dataset
-import matplotlib.pyplot as plt  
+### Created backup tables
 
-# Loading Data
-dataset = load_dataset('lukebarousse/data_jobs')
-df = dataset['train'].to_pandas()
+* Created Backup Tables: To work safely without altering the original raw data, duplicate tables were created for both 'my finances' (aliased as expenses) and income (aliased as income2). This involved dropping the tables if they already existed, then creating new tables with the same structure and inserting all data from the originals.
 
-# Data Cleanup
-df['job_posted_date'] = pd.to_datetime(df['job_posted_date'])
-df['job_skills'] = df['job_skills'].apply(lambda x: ast.literal_eval(x) if pd.notna(x) else x)
+```SQL
+drop table if exists expenses;
+
+create table expenses
+like `my finances`;
+
+insert into expenses
+select * from `my finances`;
 ```
 
 ## Filter Canadian Jobs
