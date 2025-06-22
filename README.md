@@ -44,22 +44,26 @@ The data cleaning process involved meticulously preparing both the expenses and 
 
 ```SQL
 drop table if exists expenses;
+
 create table expenses
 like `my finances`;
+
 insert into expenses
 select * from `my finances`;
 ```
 ```SQL
 drop table if exists income2;
+
 create table income2
 like income;
+
 insert into income2
 select * from income;
 ```
 
-## Filter Canadian Jobs
+## Cleaning The 'expenses' Table
 
-Although this data contains much more U.S. data, I wanted to be representative of the job market I contribute to and work with Canadian data. Thus, to focus my analysis on the Canadian job market, I apply filters to the dataset, narrowing down to roles based in Canada.
+* Removed Unnecessary Header Rows: The first three rows containing irrelevant header information (like ï»¿ and 'Expenses') were deleted.
 
 ```python
 df_US = df[df['job_country'] == 'United States']
