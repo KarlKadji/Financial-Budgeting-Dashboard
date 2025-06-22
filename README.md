@@ -65,11 +65,22 @@ select * from income;
 
 * Removed Unnecessary Header Rows: The first three rows containing irrelevant header information (like ï»¿ and 'Expenses') were deleted.
 
-```python
-df_US = df[df['job_country'] == 'United States']
+```SQL
+delete from expenses
+where ï»¿ ='ï»¿';
+
+delete from expenses
+where ï»¿ = 'Expenses';
 ```
+* Renamed Columns: Columns with generic names like ï»¿, MyUnknownColumn, and MyUnknownColumn_[X] were renamed to more descriptive and user-friendly names such as date, post_date, description, category, sub-category, note, and amount.
 
+```SQL
+delete from expenses
+where ï»¿ ='ï»¿';
 
+delete from expenses
+where ï»¿ = 'Expenses';
+```
 
 
 
