@@ -44,12 +44,17 @@ The data cleaning process involved meticulously preparing both the expenses and 
 
 ```SQL
 drop table if exists expenses;
-
 create table expenses
 like `my finances`;
-
 insert into expenses
 select * from `my finances`;
+```
+```SQL
+drop table if exists income2;
+create table income2
+like income;
+insert into income2
+select * from income;
 ```
 
 ## Filter Canadian Jobs
