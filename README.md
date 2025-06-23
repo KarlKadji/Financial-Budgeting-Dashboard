@@ -97,20 +97,33 @@ To answer the question about monthly trends in income and expenses, overall savi
 View my notebook with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
 
 ### Visualize Data
-```python
-fig,ax = plt.subplots(len(job_titles),1)
+```SQL
+with monthly_spending as (
+select date_format(transdate, '%Y-%m') as month,
+sum(amount) as spending
+from oexpenses
+group by month),
 
-sns.set_theme(style='ticks')
+monthly_income as (
+select date_format(date, '%Y-%m') as month,
+sum(amount) as earnings
+from income2
+group by month)
 
-for i, job_title in enumerate(job_titles):
-    df_plot = df_skills_perc[df_skills_perc['job_title_short']==job_title].head(5)
-    sns.barplot(data=df_plot, x='skill_percent', y='job_skills', ax=ax[i], hue = 'skill_count', palette = 'dark:b_r')
-    
-plt.show()
+select s.month,
+ spending, 
+ round(avg(spending) over () ,2) as average_spending, 
+ earnings, 
+ round(avg(earnings) over () ,2) as average_earnings, 
+ earnings-spending as 'savings'
+from monthly_spending s
+join monthly_income i
+on i.month = s.month
+order by month;
 ```
 
 ### Results
-![Likelihood of Skills requested in Canadian Job Postings](3_Project/images/skill_demand_all_data_roles.png)
+![Monthly Trend of Income and Expenses](3_Project/images/skill_demand_all_data_roles.png)
 
 *Bar Chart visualizing the likelihood of skills requested in the Canadian data job market*
 
