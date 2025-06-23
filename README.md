@@ -28,7 +28,7 @@ For my deep dive into the financial budgeting data, I harnessed the power of sev
   - **Table Operations and Schema Definitions**
   - **Joins**
 
- - **Power BI**: Served as the primary tool for visualizing the data.
+ - **Power BI**: Served as the primary tool for data visualization.
 
 
 # Data Preparation and Cleanup
