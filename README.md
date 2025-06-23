@@ -92,9 +92,9 @@ Each question addressed in this project is documented and explained in detail wi
 
 ## 1. What are the monthly trends in income and expenses, including the overall savings rate, and were there any months where expenditures resulted in a deficit?
 
-To answer the question about monthly trends in income and expenses, overall savings rate, and deficit months, I primarily utilized SQL queries within the My Finances (EDA2).sql file. I started by defining two Common Table Expressions (CTEs): monthly_spending to calculate the total expenses for each month from the "oexpenses" table, and monthly_income to calculate the total earnings for each month from the income2 table. I then joined these two monthly summaries together by month. The final selection included the monthly spending and earnings, along with the calculation of the overall average spending and earnings across all months using window functions. Crucially, I calculated the earnings - spending difference for each month, labeled as 'savings', which directly revealed monthly surpluses (positive values) or deficits (negative values).
+To analyze trends in monthly income, expenses, and savings, I used SQL to create summary tables for each month’s total income and total spending. These were joined to calculate monthly savings (income minus expenses), allowing me to identify months with surpluses or deficits. I also included average income and spending across all months to better understand how each month compared to overall financial trends.
 
-View my notebook with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
+View my SQL file with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
 
 ### Visualize Data
 ```SQL
@@ -125,7 +125,7 @@ order by month;
 ### Results
 ![Monthly Trend of Income and Expenses](3_Project/images/skill_demand_all_data_roles.png)
 
-*BTable visualizing the monthly trend of income, expenses and savings*
+*Table visualizing the monthly trend of income, expenses and savings*
 
 ### Insights
 
@@ -141,34 +141,61 @@ order by month;
 
 
 
-## 2. How are in-demand skills trending for Data Analysts?
+## 2. What percentage of the monthly income goes to essential vs non-essential spending?
 
-To find how skills are trending in 2023 for Data Analysts, I filtered data analyst positions and grouped the skills by the month of the job postings. This got me the top 5 skills of data analysts by month, showing how popular skills were throughout 2023.
+To assess how income was distributed between essential and non-essential spending, I used SQL to calculate monthly income and categorize expenses accordingly. I then compared each spending type to total income to find their respective percentages, giving a clear view of monthly budgeting priorities.
 
-View my notebook with detailed steps here: [3_Skill_Trends.ipynb](3_Project/3_Skill_Trends.ipynb)
+View my SQL file with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
 
 ### Visualize Data
-```python
-from matplotlib.ticker import PercentFormatter
+```SQL
+with monthly_income as 
+(
+	select
+		date_format(date, '%Y-%m') as month,
+        sum(amount) as income
+	from income2
+    group by month
+    ),
 
-df_plot = df_DA_CAN_percent.iloc[:,:5]
+monthly_non_essentials as (
+select
+	date_format(transdate, '%Y-%m') as month, 
+    sum(amount) as non_essential_spending
+from expenses
+where NOT (category IN ('Health', 'Car', 'Home', 'Transportation', 'Bills', 'Financial Institution', 'Visa') OR `sub-category` = 'Grocery')
+group by month
+),
 
-sns.lineplot(df_plot, dashes = False, palette = 'tab10')
-
-ax=plt.gca()
-ax.yaxis.set_major_formatter(PercentFormatter())
-
-for i in range(5):
-    plt.text(11.2,df_plot.iloc[-1,i], df_plot.columns[i])
-
-plt.show()
+monthly_essentials as (
+select
+		date_format(transdate, '%Y-%m') as month, 
+        sum(amount) as essential_spending
+        from expenses
+		where category in ('Health', 'Car', 'Home', 'Transportation', 'Bills', 'Financial Institution', 'Visa') or `sub-category` = 'Grocery'
+group by month
+)
+select
+    i.month,
+    i.income,
+    ne.non_essential_spending,
+    e.essential_spending,
+    ROUND((ne.non_essential_spending / i.income) * 100, 2) AS non_essential_percentage,
+    ROUND((e.essential_spending / i.income) * 100, 2) AS essential_percentage,
+    ROUND(((IFNULL(ne.non_essential_spending, 0) + IFNULL(e.essential_spending, 0)) / i.income) * 100, 2) AS total_spending_percentage
+FROM monthly_income i
+LEFT JOIN monthly_non_essentials ne 
+ON i.month = ne.month
+left join monthly_essentials e
+on i.month = e.month
+ORDER BY i.month;
 ```
 
 ### Results
 
-![Trending Top Skills for Data Analysts in Canada](3_Project/images/top_skills_trend.png)
+![Essential vs Non-Essential Spending Percentages](3_Project/images/top_skills_trend.png)
 
-*Line graph visualizing the trending top skills for data analysts in Canada in 2023*
+*Line graph visualizing the monthly percentage of essential and non-essential spending compared to monthly income*
 
 ### Insights
 - As expected, the line graph representing the likelihood of skills requested in data-related Canadian job postings shows consistency, with SQL, Python, and Excel being the top three skills for Data Analysts in Canada.
@@ -184,7 +211,7 @@ plt.show()
 
 To identify the highest-paying roles and skills, I only got jobs in Canada and looked at their median salary. But first I looked at the salary distributions of common data jobs like Data Scientist, Data Engineer, and Data Analyst, to get an idea of which jobs are paid the most.
 
-View my notebook with detailed steps here: [4_Salary_Analysis.ipynb](3_Project/4_Salary_Analysis.ipynb)
+View my SQL file with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
 
 ### Visualize Data
 ```python
