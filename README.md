@@ -28,7 +28,7 @@ For my deep dive into the financial budgeting data, I harnessed the power of sev
   - **Table Operations and Schema Definitions**
   - **Joins**
 
- - **Power BI**: This was used to visualize the data
+ - **Power BI**: Served as the primary tool for visualizing the data.
 
 
 # Data Preparation and Cleanup
@@ -63,7 +63,11 @@ insert into income2
 select * from income;
 ```
 
+## Cleaning the "expenses" table
+
 For the expenses table, critical steps included: removing irrelevant header and footer rows, renaming generic columns to descriptive names like date, category, and amount, replacing blank values with NULL for consistency, and meticulously converting the date and amount columns to proper DATE and DECIMAL(10,2) data types respectively, which involved removing symbols like '$' and ','. A significant step also involved standardizing transaction descriptions using a temporary mapping table to ensure consistent naming for recurring purchases.
+
+## Cleaning the "income2" table
 
 Similarly, the income2 table underwent essential cleaning, which involved renaming columns, removing irrelevant rows (such as 'Total Income' and 'Net Total'), converting the amount to DECIMAL(10,2), and transforming the date column into a proper DATE format. Both tables also had id columns added as primary keys for better indexing and uniqueness. This comprehensive cleaning ensures the data is robust and ready for accurate financial analysis.
 * Added Primary Key: An id column with AUTO_INCREMENT and PRIMARY KEY constraints was added to income2.
