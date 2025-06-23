@@ -125,17 +125,17 @@ order by month;
 ### Results
 ![Monthly Trend of Income and Expenses](3_Project/images/skill_demand_all_data_roles.png)
 
-*Bar Chart visualizing the likelihood of skills requested in the Canadian data job market*
+*BTable visualizing the monthly trend of income, expenses and savings*
 
 ### Insights
 
-* **Spending patterns:** In 7 of 12 months, spending was below the monthly average, with peaks in October and November 2024 driven by irregular rent charges, seasonal purchases, and one-time events like music expenses.
+* **Income fluctuations:** Income peaked in July 2024 (33.47% above average) due to insurance reimbursements and a likely bonus or overtime. November 2024 also exceeded average income by 24.64%, while months like October and December 2024 fell significantly below average (−16.85% and −16.93%, respectively), indicating financial volatility across the period.
 
-* **Income fluctuations:** July 2024 saw the highest income, boosted by insurance reimbursements and a 33% salary increase, while early 2025 reflected potential job loss—evidenced by reduced salaries and the onset of Employment Insurance (EI) payments.
+* **Expense patterns and deficits:** October and November 2024 saw the highest spending, driven by major one-time purchases (e.g., clothing, gifts, music-related costs) and inconsistent rent inclusion. October, in particular, resulted in a large deficit due to high expenses and one of the lowest monthly incomes, highlighting a misalignment between earnings and outflows.
 
-* **Savings trends:** Savings aligned with low-expenditure months, especially in July 2024, while October 2024 showed the largest deficit due to high expenses without income growth.
+* **Impact of unemployment:** A drop in income in early 2025, combined with the appearance of Employment Insurance (EI), suggests job loss. Although March showed spending restraint, other months during this period did not reflect significant cutbacks, with elevated expenses contributing to sustained deficits despite reduced income.
 
-* **Impact of unemployment:** Despite reduced income in early 2025, spending remained elevated—leading to deeper deficits, notably due to a major car repair—highlighting a lack of adaptive budgeting during financial disruption.
+* **Savings behavior:** The seven months with below-average spending generally coincided with months where savings were recorded. July 2024 saw the largest savings due to both increased income and moderate spending. However, October and early 2025 emphasize the financial strain caused when spending fails to adjust in tandem with declining income.
 
 
 
