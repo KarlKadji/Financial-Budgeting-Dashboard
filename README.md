@@ -38,7 +38,7 @@ This section outlines the steps taken to prepare the data for analysis, ensuring
 
 The data cleaning process was crucial for ensuring the accuracy and usability of the financial data, involving several key steps across both the expense and income datasets. It began by creating backup tables for both expenses (oexpenses from my finances) and income (income2 from income) to preserve the original raw data.
 
-For a comprehensive, in-depth view of the cleaning process, including detailed SQL code, please refer to the provided link: [Financial Budgeting Dashboard (Cleaning)](Financial Budgeting Dashboard (Cleaning).sql)
+For a comprehensive, in-depth view of the cleaning process, including detailed SQL code, please refer to the provided link: [Financial Budgeting Dashboard (Cleaning)](Financial_Budgeting_Dashboard_(Cleaning).sql)
 
 ### Created backup tables
 
