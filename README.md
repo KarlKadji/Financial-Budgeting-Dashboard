@@ -94,7 +94,7 @@ Each question addressed in this project is documented and explained in detail wi
 
 To analyze trends in monthly income, expenses, and savings, I used SQL to create summary tables for each month’s total income and total spending. These were joined to calculate monthly savings (income minus expenses), allowing me to identify months with surpluses or deficits. I also included average income and spending across all months to better understand how each month compared to overall financial trends.
 
-View my SQL file with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
+View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
 
 ### Visualize Data
 ```SQL
@@ -145,7 +145,7 @@ order by month;
 
 To assess how income was distributed between essential and non-essential spending, I used SQL to calculate monthly income and categorize expenses accordingly. I then compared each spending type to total income to find their respective percentages, giving a clear view of monthly budgeting priorities.
 
-View my SQL file with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
+View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
 
 ### Visualize Data
 ```SQL
@@ -211,7 +211,7 @@ ORDER BY i.month;
 
 To identify the highest-paying roles and skills, I only got jobs in Canada and looked at their median salary. But first I looked at the salary distributions of common data jobs like Data Scientist, Data Engineer, and Data Analyst, to get an idea of which jobs are paid the most.
 
-View my SQL file with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
+View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
 
 ### Visualize Data
 ```python
@@ -274,6 +274,8 @@ plt.show()
 ## 4. What are the most optimal skills to learn for Data Analysts?
 
 To identify the most optimal skills to learn (the ones that are the highest paid and highest in demand) I calculated the percent of skill demand and the median salary of these skills. To easily identify which are the most optimal skills to learn.
+
+View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
 
 ### Visualize Data
 ```python
