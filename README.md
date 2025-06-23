@@ -9,7 +9,7 @@ Below are the questions I want to answer in my project:
 
 1. What are the monthly trends in income and expenses, including the overall savings rate, and were there any months where expenses resulted in a deficit?
 2. What percentage of the monthly income goes to essential vs non-essential spending?
-3. What are the top 5 overall expense categories, how does spending differ within sub-categories, and do any seasonal patterns emerge in expenditures?
+3. What are the top 5 overall expense categories? How does spending differ within sub-categories, and do any seasonal patterns emerge in expenditures?
 4. How do average weekly expenses look over time?
 5. What are the various sources of income, and how consistent are they, specifically identifying any irregular or declining contributions?
 6. Are there any unnecessary expenses that can be cut?
@@ -198,10 +198,8 @@ ORDER BY i.month;
 *Line graph visualizing the monthly percentage of essential and non-essential spending compared to monthly income*
 
 ### Insights
-* On average, approximately 27.46% of your monthly income goes towards non-essential spending.
-* On average, approximately 72.28% of your monthly income goes towards essential spending.
-* High Spending Relative to Income:
-	* Many months show total spending percentages exceeding 100% (e.g., October 2024: 127.79%, May 2025: 131.90%, June 2025: 132.38%), meaning total spending (essential + non-essential) surpasses income, indicating likely use of savings or credit.
+* **On average, approximately 27.46% of your monthly income goes towards non-essential spending.**
+* **On average, approximately 72.28% of your monthly income goes towards essential spending.**
 
 * Non-Essential Spending Fluctuations:
 	* Non-essential spending percentage varies widely from low (~7% in May 2025) to very high (~61% in October 2024), suggesting irregular discretionary spending patterns. Peaks in non-essential spending coincide with high overall spending months.
@@ -209,28 +207,29 @@ ORDER BY i.month;
 * Essential Spending Consistently High:
  	* Essential spending percentage often represents a large share of income, regularly above 60% after September 2024. Some months exceed 100% (May, June 2025), showing essential expenses alone are greater than monthly income, which may signal financial stress or misclassification.
 
-* Months with Balanced Spending:
-	* July 2024 and February 2025 have relatively lower total spending percentages (34.01% and 56.75%, respectively), implying better spending control or months with less financial pressure.
-
-* Lower Income Periods with High Spending:
-	* Months like March 2025 and May-June 2025 show lower income but very high spending percentages, indicating potential financial strain or reliance on credit/savings.
 
 
-## 3. How well do jobs and skill pay for Data Analysts?
 
-To identify the highest-paying roles and skills, I only got jobs in Canada and looked at their median salary. But first I looked at the salary distributions of common data jobs like Data Scientist, Data Engineer, and Data Analyst, to get an idea of which jobs are paid the most.
+
+
+## 3. What are the top 5 overall expense categories? How does spending differ within sub-categories, and do any seasonal patterns emerge in expenditures?
+
+To answer the question, I first used a query to identify the top 5 expense categories by total spending. Then, I analyzed sub-categories by comparing their total and average monthly expenditures to estimate expected yearly spending and detect variances. Lastly, I used seasonal groupings based on transaction dates to assess total spend, transaction counts, and average transaction sizes across seasons, revealing spending patterns over the year.
 
 View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
 
 ### Visualize Data
-```python
-sns.boxplot(data = df_US, x='salary_year_avg', y='job_title_short', order = job_order)
-
-ticks_x = plt.FuncFormatter(lambda y, pos: f'${int(y/1000)}K')
-
-plt.gca().xaxis.set_major_formatter(ticks_x)
-
-plt.show()
+```SQL
+select 
+	category, 
+	sum(amount) as total 
+from 
+	oexpenses 
+group by 
+	category 
+    order by 
+		total desc
+limit 5;
 ```
 
 ### Results
@@ -241,63 +240,91 @@ plt.show()
 *Box plot visualizing the salary distribution for various data tech positions in Canada in 2023*
 
 ### Insights
-- Median salaries tend to increase with seniority and specialization. Senior roles, such as Senior Data Engineer, not only command higher median salaries but also show greater variability in compensation, reflecting wider salary differences as responsibilities and expertise grow.
-- Data Analysts have the lowest median salary among the top six roles. This aligns with expectations, as higher-paying positions typically require more specialized technical skills in areas like machine learning, cloud engineering, or advanced data modeling.
-- Roles with higher outliers—such as Machine Learning Engineer and Senior Data Engineer—indicate that top performers or professionals in leading companies can earn significantly above the median. Meanwhile, Data Analysts exhibit a much lower outlier range, suggesting limited salary spikes even at senior levels.
+* Top spending categories were Bills, Retail and Grocery, Car, Entertainment, and Health, indicating essential and lifestyle-related expenses dominate the budget.
+* Sub-category analysis revealed overspending in areas like Maintenance, Music, and Eating Out, while categories like Rent and Phone showed under or stable spending relative to expectations.
+* Seasonal patterns emerged, with Fall showing the highest total spend and transaction volume—suggesting increased costs from events or holidays—while Summer had more frequent but smaller purchases.
+* Spending behavior varies significantly, with some categories reflecting consistent, planned expenses and others showing irregular or seasonal spikes, highlighting areas for budgeting improvement.
 
-## Highest Paid & Most Demanded Skills for Data Analysts
 
-Next, I narrowed my analysis and focused only on data analyst roles. I looked at the highest-paid skills and the most in-demand skills. I used two horizontal bar charts to showcase these.
+
+
+
+## 4. How do average weekly expenses look over time?
+
+To answer the question, I first used a query to identify the top 5 expense categories by total spending. Then, I analyzed sub-categories by comparing their total and average monthly expenditures to estimate expected yearly spending and detect variances. Lastly, I used seasonal groupings based on transaction dates to assess total spend, transaction counts, and average transaction sizes across seasons, revealing spending patterns over the year.
+
+View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
+
 ### Visualize Data
-```python
-fig, ax = plt.subplots(2,1)
-
-# Top 10 Paid SKills for Data Analysts
-sns.barplot(data=df_DA_toppay, x='median', y=df_DA_toppay.index, ax=ax[0], hue='median', palette= 'dark:b_r')
-
-# Top 10 Most In-Demand Skills for Data Analysts
-sns.barplot(data=df_DA_skills, x='median', y=df_DA_skills.index, ax=ax[1], hue='median', palette= 'light:b')
-ax[1].legend().remove()
-
-plt.show()
+```SQL
+SELECT
+  year,
+  week_number,
+  week_start,
+  DATE_ADD(week_start, INTERVAL 6 DAY) AS week_end,
+  CONCAT(
+    DATE_FORMAT(week_start, '%Y-%m-%d'),
+    ' - ',
+    DATE_FORMAT(DATE_ADD(week_start, INTERVAL 6 DAY), '%Y-%m-%d')
+  ) AS week_range,
+  SUM(amount) AS total_spent,
+  AVG(amount) AS avg_spent
+FROM (
+  SELECT 
+    YEAR(transdate) AS year,
+    WEEK(transdate, 1) AS week_number,
+    DATE_SUB(transdate, INTERVAL WEEKDAY(transdate) DAY) AS week_start,
+    amount
+  FROM oexpenses
+) AS derived
+GROUP BY year, week_number, week_start
+ORDER BY year, week_number;
 ```
 
 ### Results
 
-![Salary Distribution in Canada](3_Project/images/skills_vs_pay.png)
+![Salary Distribution in Canada](3_Project/images/salary_distibution_in_canada.png)
 
 
-*Horizontal Bar Charts visualizing the Top 10 Highest Paid Skills for Data Analysts in Canada in 2023*
+*Box plot visualizing the salary distribution for various data tech positions in Canada in 2023*
 
 ### Insights
-- Most of the highest paid skills are not the most in-demand skills for data analysts in Canada. Similarly, many high-demand skills are not among the highest paying. This suggests that niche skills—those less commonly required—may offer higher salaries due to their specialization and lower supply in the job market.
 
-- Skills such as Snowflake and Spark are particularly valuable because they are both highly paid and highly in demand. While foundational tools like Python, SQL, and Excel may not top the salary charts, they remain essential for breaking into the field and improving job prospects.
+* Spending fluctuates significantly week to week, with some weeks like Week 48 (Nov 25–Dec 1, 2024) and Week 40 (Sep 30–Oct 6, 2024) showing exceptionally high totals over $1,900, while others like Week 52 (Dec 23–29, 2024) are under $100.
 
-- Cloud and Big Data tools—such as Redshift, Snowflake, BigQuery, AWS, and GCP—feature prominently among the highest-paid skills. This highlights the strong earning potential for data analysts who specialize in modern data infrastructure.
+* The most expensive weeks overall include:
+
+	* Week 48: $2,027.65
+
+	* Week 40: $1,960.89
+
+	* Week 5 (2025): $1,789.87
+
+	* Week 24 (2025): $1,536.93
+
+	* Week 23 (2025): $1,350.03
+* These weeks likely involve major events, bills, or one-time purchases.
+
+* Late summer and fall (weeks 32–44) show generally higher and more consistent spending, suggesting increased activity during this period—possibly related to back-to-school or seasonal events.
+
+* Early winter (weeks 50–52) shows a steep drop in spending, despite the holiday season, which could indicate pre-holiday bulk purchases or a spending pause.
+
+* 2025 has had several high-spending spikes (e.g., Weeks 5, 14, 19, 23–24), but also consistent low-spending weeks, pointing to an irregular but recoverable financial rhythm.
+
+* The highest single average daily spending occurred in Week 1 of 2025 ($524.50), suggesting a large, concentrated expense—possibly rent, travel, or a lump payment.
 
 
 
 
-
-## 4. What are the most optimal skills to learn for Data Analysts?
+## 5. What are the various sources of income, and how consistent are they, specifically identifying any irregular or declining contributions?
 
 To identify the most optimal skills to learn (the ones that are the highest paid and highest in demand) I calculated the percent of skill demand and the median salary of these skills. To easily identify which are the most optimal skills to learn.
 
 View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
 
 ### Visualize Data
-```python
-import matplotlib.pyplot as plt
-from adjustText import adjust_text
-
-sns.scatterplot(
-    data=df_plot,
-    x='skill_percent',
-    y='median_salary',
-    hue='technology'
-)
-plt.show()
+```SQL
+select category, sum(amount) from income2 group by category;
 ```
 
 ### Results
