@@ -63,28 +63,49 @@ insert into income2
 select * from income;
 ```
 
-## Cleaning The 'expenses' Table
+## Cleaning The "expenses" Table
 
 * Removed Unnecessary Header Rows: The first three rows containing irrelevant header information (like ï»¿ and 'Expenses') were deleted.
-
-```SQL
-delete from expenses
-where ï»¿ ='ï»¿';
-
-delete from expenses
-where ï»¿ = 'Expenses';
-```
 * Renamed Columns: Columns with generic names like ï»¿, MyUnknownColumn, and MyUnknownColumn_[X] were renamed to more descriptive and user-friendly names such as date, post_date, description, category, sub-category, note, and amount.
+* Deleted Redundant Header Row: Another row with 'Transaction Date' as its value in the date column was removed.
+* Dropped post_date Column: The post_date column, identified as unnecessary for the analysis, was removed.
+* Replaced Blanks with NULLs: Empty string values ('') in the note, sub-category, category, and description columns were updated to NULL for easier data handling and querying.
+* Removed Footer Rows with Totals: The bottom two rows, which contained aggregate totals and were not part of the transactional data, were deleted based on description being NULL and date being empty or description being NULL.
+* Converted date Column to Proper Date Type:
+  * A new column named transdate was added with a DATE data type.
+  * The string values from the original date column were converted into DATE format and populated into the new transdate column using STR_TO_DATE('%Y-%m-%d').
+  * transdate was then set as the first column in the table, and the original date column was dropped.
+* Cleaned and Converted amount Column:
+  * $ and , characters were removed from the amount column using REPLACE.
+  * The cleaned string values were then cast to a DECIMAL(10,2) data type to ensure numerical accuracy for calculations.
+  * Transactions with negative amounts (identified as duplicates or errors) were deleted.
+* Removed Refundable Transactions: Transactions explicitly marked as 'Refundable' in the note column were removed as they were not true expenses.
+* Standardized Descriptions using a Temporary Mapping Table:
+  * A temporary table description_mapping was created to store keywords and their corresponding standardized descriptions, along with optional sub_category_filter and category_filter to refine matches.
+  * This mapping table was populated with various keywords (e.g., %HORTONS%, %costco%) and their desired new_description (e.g., 'Tim Hortons', 'Costco').
+  * The expenses table's description column was then updated by joining with this description_mapping table on LIKE conditions, ensuring consistent naming for recurring purchases.
+  * A specific update was also applied for 'Kings of Cuts' based on the 'cut' keyword in the note column.
+* Standardized sub-category Values: The maintenance and maintenance & supply sub-categories were standardized to 'Maintenance'. 'Car Phone Mount' in notes was used to update sub-category to 'Car Accessory'.
+* Added Primary Key: An id column with AUTO_INCREMENT and PRIMARY KEY constraints was added to expenses for unique identification and better indexing.
+* Created Ordered Expenses Table (oexpenses): A new table oexpenses was created, replicating the structure of the cleaned expenses table, and data was inserted from expenses ordered by transdate to maintain chronological integrity.
 
-```SQL
-delete from expenses
-where ï»¿ ='ï»¿';
+## Cleaning the "income2" Table
 
-delete from expenses
-where ï»¿ = 'Expenses';
-```
-
-
+* Created Backup Table: A duplicate table income2 was created from the original income table, similar to the expenses process.
+* Renamed Columns: Columns were renamed to date, description, category, sub-category, note, and amount for clarity.
+* Removed Irrelevant Rows: Rows containing various header or footer texts (ï»¿, 'Income', 'Transaction Date', '', 'Total Income', 'Net Total') were deleted.
+* Cleaned and Converted amount Column:
+  * A temporary amount_clean column was added.
+  * $ and , characters were removed from the original amount column, and values were cast to DECIMAL(10,2) into amount_clean.
+  * The original amount column was dropped, and amount_clean was renamed to amount.
+* Converted date Column to Proper Date Type:
+  * A new transdate column of DATE type was added.
+  * The original date column (e.g., 'Month DD, YYYY') was converted and assigned to transdate using STR_TO_DATE('%M %d, %Y').
+  * The transdate column then replaced the original date column.
+* Replaced Blanks with NULLs: Empty string values in note and sub-category were set to NULL.
+* Corrected Future Date Typo: A specific date 2026-06-12 was updated to 2025-06-12, assuming a typo based on the dataset's timeframe.
+* Filled Missing sub-category Data: Based on description, sub-category was updated for 'Employment Insurance' to 'EI', 'CDACARBONREBATE' to 'Tax Rebate', 'GST' to 'Sales Tax Rebate', and all 'Pay' category entries to 'Salary'.
+* Added Primary Key: An id column with AUTO_INCREMENT and PRIMARY KEY constraints was added to income2.
 
 
 
