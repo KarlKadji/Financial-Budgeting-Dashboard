@@ -88,10 +88,11 @@ Similarly, the income2 table underwent essential cleaning which involved:
 
 # The Analysis
 
+Each question addressed in this project is documented and explained in detail within the Financial Budgeting Project (EDA) file. A concise summary of the analytical approach taken to answer each question is provided below.
 
-## 1.What are the monthly trends in income and expenses, including the overall savings rate, and were there any months where expenses resulted in a deficit?
+## 1. What are the monthly trends in income and expenses, including the overall savings rate, and were there any months where expenditures resulted in a deficit?
 
-
+To answer the question about monthly trends in income and expenses, overall savings rate, and deficit months, I primarily utilized SQL queries within the My Finances (EDA2).sql file. I started by defining two Common Table Expressions (CTEs): monthly_spending to calculate the total expenses for each month from the "oexpenses" table, and monthly_income to calculate the total earnings for each month from the income2 table. I then joined these two monthly summaries together by month. The final selection included the monthly spending and earnings, along with the calculation of the overall average spending and earnings across all months using window functions. Crucially, I calculated the earnings - spending difference for each month, labeled as 'savings', which directly revealed monthly surpluses (positive values) or deficits (negative values).
 
 View my notebook with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
 
@@ -114,9 +115,20 @@ plt.show()
 *Bar Chart visualizing the likelihood of skills requested in the Canadian data job market*
 
 ### Insights
-- SQL is the most requested skill for all three roles of Data Analyst, Data Engineer, and Senior Data Engineer, with the skill being in more than half of the job postings for the top 3 roles.
-- Python is a versatile skill, also appearing in the top 3 skills for each role. Although less prominent for Data Analysts at about 32% of roles, it is proven to be an important skill for Data Engineers and Senior Data Engineers appearing in 61% and 67% of job postings respectively.
-- Data Engineers require technical skills such as AWS, Spark and Azure compared to Data Analysts who are expected to be procifient in more general data management and analysis tools such as Excel, Tableau, and Power BI.
+
+The data reveals that in 7 out of the 12 months, spending was below the calculated monthly average, with some months demonstrating notably lower expenditures. July 2024 and March 2025 were the only months when total expenses fell below $2,000. In contrast, the highest spending occurred in October and November 2024, which stand out as potential outliers.
+
+A closer examination of transactions during these peak months shows that rent, a major recurring expense, was included inconsistently throughout the year, potentially inflating the totals for October and November. These months also included additional expenditures such as clothing purchases, VISA fees, and Christmas gifts, likely in anticipation of a vacation in December. Moreover, there were unique music-related purchases not present in other months, suggesting a specific event or occasion that contributed to the spike in spending.
+
+On the income side, July 2024 was the highest-earning month. Upon further inspection, this spike was primarily due to insurance reimbursements, which were not typical in other months. Additionally, the salary in July 2024 was 33.47% higher than the average monthly salary for the year, possibly due to work incentives or overtime. In contrast, the lowest income levels were recorded in early 2025, with only three salary payments made across January and February. This pattern suggests a potential job loss, which is further supported by the appearance of Employment Insurance (EI) payments beginning in late February and continuing through June.
+
+The drop in income appears to correlate with reduced spending in March 2025, and the subsequent increase in EI could explain the rise in expenditures from April onward.
+
+Mirroring the spending trends, the 7 months with below-average expenditures also aligned with months where savings were recorded. The most substantial savings occurred in July 2024, corresponding with the salary increase and additional income. Generally, savings remained under $1,000 per month. However, October recorded the largest deficit, driven by unusually high spending and no corresponding increase in income.
+
+What is particularly notable is the deficit during the unemployment period. While a drop in income is expected, the lack of proportional reduction in spending suggests that spending habits did not adjust to the new financial reality. Spending during this period appears to have worsened compared to the employed months. A significant car maintenance expense—an outlier—was recorded during this time, contributing to the financial strain.
+
+Overall, the combination of decreased income and unchanged or elevated expenses during unemployment led to a higher-than-usual deficit, emphasizing the importance of responsive budgeting during periods of income disruption.
 
 
 
