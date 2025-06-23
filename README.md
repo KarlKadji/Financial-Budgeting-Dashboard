@@ -65,11 +65,23 @@ select * from income;
 
 ## Cleaning the "expenses" table
 
-For the expenses table, critical steps included: removing irrelevant header and footer rows, renaming generic columns to descriptive names like date, category, and amount, replacing blank values with NULL for consistency, and meticulously converting the date and amount columns to proper DATE and DECIMAL(10,2) data types respectively, which involved removing symbols like '$' and ','. A significant step also involved standardizing transaction descriptions using a temporary mapping table to ensure consistent naming for recurring purchases.
+For the expenses table, critical steps included: 
+* Removing irrelevant header and footer rows
+* Renaming generic columns to descriptive names like date, category, and amount
+* Replacing blank values with NULL for consistency
+* Meticulously converting the date and amount columns to proper DATE and DECIMAL(10,2) data types respectively, which involved removing symbols like '$' and ','.
+* Standardized transaction descriptions using a temporary mapping table to ensure consistent naming for recurring purchases.
+* Added Primary Key: An id column with AUTO_INCREMENT and PRIMARY KEY constraints was added to 'oexpenses'.
+* Reordered the expenses table to have the ID column match the dates and renamed it 'oexpenses'.
+  * This is the table that was used for EDA moving forward.
 
 ## Cleaning the "income2" table
 
-Similarly, the income2 table underwent essential cleaning, which involved renaming columns, removing irrelevant rows (such as 'Total Income' and 'Net Total'), converting the amount to DECIMAL(10,2), and transforming the date column into a proper DATE format. Both tables also had id columns added as primary keys for better indexing and uniqueness. This comprehensive cleaning ensures the data is robust and ready for accurate financial analysis.
+Similarly, the income2 table underwent essential cleaning which involved: 
+* Renaming columns
+* Removing irrelevant rows (such as 'Total Income' and 'Net Total')
+* Converting the amount to DECIMAL(10,2)
+* Transforming the date column into a proper DATE format
 * Added Primary Key: An id column with AUTO_INCREMENT and PRIMARY KEY constraints was added to income2.
 
 
