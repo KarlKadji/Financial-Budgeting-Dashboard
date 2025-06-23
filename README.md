@@ -294,15 +294,16 @@ ORDER BY year, week_number;
 
 * The most expensive weeks overall include:
 
-	* Week 48: $2,027.65
+	* Week 48 (2024/11/25 - 2024/12-01): $2,027.65
 
-	* Week 40: $1,960.89
+	* Week 40 (2024/09/30 - 2024/10/06): $1,960.89
 
-	* Week 5 (2025): $1,789.87
+	* Week 5 (2025/01/27 - 2025/02/02): $1,789.87
 
-	* Week 24 (2025): $1,536.93
+	* Week 24 (2025/06/09 - 2025/06/15): $1,536.93
 
-	* Week 23 (2025): $1,350.03
+	* Week 23 (2025/06-02 - 2025/06/08): $1,350.03
+   
 * These weeks likely involve major events, bills, or one-time purchases.
 
 * Late summer and fall (weeks 32–44) show generally higher and more consistent spending, suggesting increased activity during this period—possibly related to back-to-school or seasonal events.
