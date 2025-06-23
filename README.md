@@ -198,13 +198,22 @@ ORDER BY i.month;
 *Line graph visualizing the monthly percentage of essential and non-essential spending compared to monthly income*
 
 ### Insights
-- As expected, the line graph representing the likelihood of skills requested in data-related Canadian job postings shows consistency, with SQL, Python, and Excel being the top three skills for Data Analysts in Canada.
+* On average, approximately 27.46% of your monthly income goes towards non-essential spending.
+* On average, approximately 72.28% of your monthly income goes towards essential spending.
+* High Spending Relative to Income:
+	* Many months show total spending percentages exceeding 100% (e.g., October 2024: 127.79%, May 2025: 131.90%, June 2025: 132.38%), meaning total spending (essential + non-essential) surpasses income, indicating likely use of savings or credit.
 
-- SQL is clearly the most in-demand skill, maintaining above 50% likelihood in postings throughout the year. A noticeable peak in September suggests a surge in demand during the fall hiring cycle.
+* Non-Essential Spending Fluctuations:
+	* Non-essential spending percentage varies widely from low (~7% in May 2025) to very high (~61% in October 2024), suggesting irregular discretionary spending patterns. Peaks in non-essential spending coincide with high overall spending months.
 
-- Python ranks second in demand, with steady interest between 30–40%. Like SQL, it experiences minor fluctuations but no significant decline, indicating stable and potentially growing demand.
+* Essential Spending Consistently High:
+ 	* Essential spending percentage often represents a large share of income, regularly above 60% after September 2024. Some months exceed 100% (May, June 2025), showing essential expenses alone are greater than monthly income, which may signal financial stress or misclassification.
 
-- Excel, Tableau, and Power BI are closely competing. Tableau shows notable spikes in May and September, possibly tied to project or reporting cycles. The monthly variability seen across these three tools suggests that they are more role-specific or industry-dependent in their demand.
+* Months with Balanced Spending:
+	* July 2024 and February 2025 have relatively lower total spending percentages (34.01% and 56.75%, respectively), implying better spending control or months with less financial pressure.
+
+* Lower Income Periods with High Spending:
+	* Months like March 2025 and May-June 2025 show lower income but very high spending percentages, indicating potential financial strain or reliance on credit/savings.
 
 
 ## 3. How well do jobs and skill pay for Data Analysts?
