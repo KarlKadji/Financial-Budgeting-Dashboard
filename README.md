@@ -38,6 +38,8 @@ This section outlines the steps taken to prepare the data for analysis, ensuring
 
 The data cleaning process involved meticulously preparing both the expenses and income datasets to ensure accuracy, consistency, and usability for analysis.
 
+Follow this link to view the process, including the codes in detail: [My Finances (Cleaning)](My Finances (Cleaning).sql)
+
 ### Created backup tables
 
 * Created Backup Tables: To work safely without altering the original raw data, duplicate tables were created for both 'my finances' (aliased as expenses) and income (aliased as income2). This involved dropping the tables if they already existed, then creating new tables with the same structure and inserting all data from the originals.
@@ -89,15 +91,9 @@ where ï»¿ = 'Expenses';
 # The Analysis
 
 
-Each Jupyter notebook for this project aimed at investigating specific aspects of the data job market. Here’s how I approached each question:
+## 1.What are the monthly trends in income and expenses, including the overall savings rate, and were there any months where expenses resulted in a deficit?
 
 
-
-
-
-## 1. What are the most demanded skills for the top 3 most popular data roles?
-
-To find the most demanded skills for the top 3 most popular data roles, I filtered out the positions by the most popular ones, and got the the top 5 skills for those top 3 roles. This query highlights the most popular job titles and their top skills, showing which skills I should pay attention to depending on the role I'm targeting.
 
 View my notebook with detailed steps here: [2_Skill_Demand.ipynb](3_Project/2_Skills_Demand.ipynb)
 
