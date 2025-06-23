@@ -129,13 +129,13 @@ order by month;
 
 ### Insights
 
-* Spending patterns: In 7 of 12 months, spending was below the monthly average, with peaks in October and November 2024 driven by irregular rent charges, seasonal purchases, and one-time events like music expenses.
+* **Spending patterns:** In 7 of 12 months, spending was below the monthly average, with peaks in October and November 2024 driven by irregular rent charges, seasonal purchases, and one-time events like music expenses.
 
-* Income fluctuations: July 2024 saw the highest income, boosted by insurance reimbursements and a 33% salary increase, while early 2025 reflected potential job loss—evidenced by reduced salaries and the onset of Employment Insurance (EI) payments.
+* **Income fluctuations:** July 2024 saw the highest income, boosted by insurance reimbursements and a 33% salary increase, while early 2025 reflected potential job loss—evidenced by reduced salaries and the onset of Employment Insurance (EI) payments.
 
-* Savings trends: Savings aligned with low-expenditure months, especially in July 2024, while October 2024 showed the largest deficit due to high expenses without income growth.
+* **Savings trends:** Savings aligned with low-expenditure months, especially in July 2024, while October 2024 showed the largest deficit due to high expenses without income growth.
 
-* Impact of unemployment: Despite reduced income in early 2025, spending remained elevated—leading to deeper deficits, notably due to a major car repair—highlighting a lack of adaptive budgeting during financial disruption.
+* **Impact of unemployment:** Despite reduced income in early 2025, spending remained elevated—leading to deeper deficits, notably due to a major car repair—highlighting a lack of adaptive budgeting during financial disruption.
 
 
 
