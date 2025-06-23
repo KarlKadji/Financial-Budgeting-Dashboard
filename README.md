@@ -12,7 +12,6 @@ Below are the questions I want to answer in my project:
 3. What are the top 5 overall expense categories? How does spending differ within sub-categories, and do any seasonal patterns emerge in expenditures?
 4. How do average weekly expenses look over time?
 5. What are the various sources of income, and how consistent are they, specifically identifying any irregular or declining contributions?
-6. Are there any unnecessary expenses that can be cut?
 
 
 # Tools I used
@@ -251,7 +250,7 @@ limit 5;
 
 ## 4. How do average weekly expenses look over time?
 
-To answer the question, I first used a query to identify the top 5 expense categories by total spending. Then, I analyzed sub-categories by comparing their total and average monthly expenditures to estimate expected yearly spending and detect variances. Lastly, I used seasonal groupings based on transaction dates to assess total spend, transaction counts, and average transaction sizes across seasons, revealing spending patterns over the year.
+To understand how average weekly expenses changed over time, I used a SQL query that first assigned each transaction to its corresponding week by calculating the week number and the Monday of that week. Then, I grouped all transactions by year and week, calculating both the total and average amount spent in each week. This allowed me to observe spending trends week by week, identify spikes or dips, and evaluate how consistent or volatile my weekly expenses were throughout the year.
 
 View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
 
@@ -319,13 +318,19 @@ ORDER BY year, week_number;
 
 ## 5. What are the various sources of income, and how consistent are they, specifically identifying any irregular or declining contributions?
 
-To identify the most optimal skills to learn (the ones that are the highest paid and highest in demand) I calculated the percent of skill demand and the median salary of these skills. To easily identify which are the most optimal skills to learn.
+To answer the question about income sources and their consistency, I began by reviewing all entries in the income2 table to understand the full scope of income data. I used aggregation queries to identify the total amount received by each main income category (e.g., Pay, Government, Debt) and then drilled down further into sub-categories, especially within Government payments, to detect patterns or irregularities. I filtered the data by individual categories—Pay, Government, and Debt—to examine trends over time, such as whether contributions were regular, sporadic, or declining. This approach helped reveal which income streams were steady (like Pay) and which were more irregular or seasonal (like Debt or certain Government sub-categories).
 
 View my SQL file with detailed steps here: [Financial Budgeting Dashboard (EDA)](Financial_Budgeting_Dashboard_(EDA).sql)
 
 ### Visualize Data
 ```SQL
+select * from income2;
 select category, sum(amount) from income2 group by category;
+select `sub-category`, sum(amount) from income2 where category = 'Government' group by `sub-category`;
+
+select * from income2 where category = 'Pay';
+select * from income2 where category = 'Government';
+select * from income2 where category = 'Debt';
 ```
 
 ### Results
@@ -336,50 +341,59 @@ select category, sum(amount) from income2 group by category;
 *Scatter Plot visualizing the most optimal skills for data analysts categorized by technology in Canada in 2023*
 
 ### Insights
-- As an entry-level Data Analyst in 2023 in Canada, programming languages such as SQL and Python are the most optimal skills to aquire because although the salaries are just under $100K they are often in high-demand appearing in 50%+ of job postings. This indicates that the skills are foundational and expected. Mid-to-Senior Analysts aiming for higher salaries should consider learning Snowflake, Spark, BigQuery or Azure which are less common but highly compensated.
-- Analyst Tools such as Excel and Tableau have a decent demand being in 20-40% of job postings but have a low median salary. These tools are often used in reproting heavy or junior roles and may not command higher pay unless combined with more technical skills.
-- Cloud skills are the most profitable as they tend to be required for job postings with salaries on the higher end of what is offered, however, they have a low demand. This suggests they are specialized skills that are not needed by all employers but highly values by those who require them.
+
+* The primary income source was salary, totaling $23,198.69 over 12 months, with July ($2,464.83) and February ($2,528.28) as the highest months.
+
+* The July salary increase likely came from overtime or bonuses, while February’s spike possibly reflects severance pay, marking the final payment.
+
+* Government payments, mainly Employment Insurance (EI), became regular after the final salary in February, with other irregular government income also noted.
+
+* Debt-related income was the third largest source, sporadic in nature, usually between $100-$150, with occasional larger amounts, likely tied to routine financial management.
+
+
+
 
 # What I learned
-Throughout this project, I deepened my understanding of the data analyst job market and enhanced my technical skills in Python, especially in data manipulation and visualization. Here are a few specific things I learned:
+Throughout this project, I deepened my understanding of practical data analysis workflows applied specifically to financial budgeting data, and significantly enhanced my technical skills, particularly in SQL and Power BI. Here are a few specific things I learned:
 
 
-- **Advanced Python Usage**: Utilizing libraries such as Pandas for data manipulation, Seaborn and Matplotlib for data visualization, and other libraries helped me perform complex data analysis tasks more efficiently.
+* **I applied rigorous data cleaning methodologies:** I encountered firsthand the complexity of raw financial data and implemented systematic cleaning processes—handling nulls, standardizing date formats, and normalizing descriptions—to ensure the integrity and reliability of downstream analysis.
 
-- **Data Cleaning Importance**: I learned that thorough data cleaning and preparation are crucial before any analysis can be conducted, ensuring the accuracy of insights derived from the data.
+* **I deepened my financial domain understanding:** Through detailed classification and trend analysis of income and expenditures, I sharpened my ability to identify financial behavior patterns, improve categorization logic, and draw meaningful insights from personal finance data.
 
-- **Strategic Skill Analysis**: The project emphasized the importance of aligning one's skills with market demand. Understanding the relationship between skill demand, salary, and job availability allows for more strategic career planning in the tech industry.
+* **I generated actionable budgeting insights:** By segmenting spending into essential and non-essential categories, I identified high-cost drivers, seasonal trends, and opportunities for optimization—enhancing both the analytical value and practical application of the findings.
+  
+* **I conducted diagnostic analysis to assess financial health:** I tracked fluctuations in income and expenditure over time to reveal periods of volatility, surplus, or strain—enabling me to pinpoint underlying causes and inform more resilient budgeting strategies.
+  
+* **I leveraged advanced SQL for complex analytical tasks:** I utilized CTEs for query modularity, window functions for comparative metrics, and CASE logic for dynamic categorization, demonstrating fluency in scalable and interpretable SQL workflows.
+  
+* **I emphasized data storytelling through visualization strategy:** While the analysis was conducted in SQL, I recognized the strategic value of tools like Power BI in translating raw data into intuitive visuals that accelerate stakeholder understanding and decision-making.
+  
+* **I executed a structured, end-to-end data workflow:** From ingestion and cleaning to exploration and insight generation, I followed a disciplined analytics pipeline that mirrors professional data project standards and supports repeatability and scalability.
 
 # Insights
 
-This project provided several general insights into the data job market for analysts:
+This project provided several valuable insights into the individual’s financial behavior:
 
-- **Skill Demand and Salary Correlation**: There is a clear correlation between the demand for specific skills and the salaries these skills command. Advanced and specialized skills like Python and Oracle often lead to higher salaries.
-- **Market Trends**: There are changing trends in skill demand, highlighting the dynamic nature of the data job market. Keeping up with these trends is essential for career growth in data analytics.
-- **Economic Value of Skills**: Understanding which skills are both in-demand and well-compensated can guide data analysts in prioritizing learning to maximize their economic returns.
+* **Income Volatility and Job Loss Indicators:** Income varied significantly month-to-month, with peaks due to insurance payouts or bonuses (e.g., July, November 2024), and sharp declines in October and December. The sudden appearance of Employment Insurance in 2025, combined with a salary stop in February, strongly indicates job loss and financial transition.
+* **Persistent Spending Despite Income Drops:** Even after the loss of regular salary, many months in 2025 did not reflect major spending reductions. Essential expenses alone often exceeded income (especially in May and June), suggesting either financial strain or a lack of rapid adjustment to the new financial reality.
+* **Discretionary Spending is Irregular and Often High:** Non-essential spending ranged from a low of 7% to over 60% of income, with spikes aligning to months like October 2024—indicating impulsive or event-driven purchases that can derail budget plans.
+* **Seasonal Trends in Expenditure:** Fall consistently had the highest total spending and transaction volume, suggesting seasonal factors such as holidays, events, or back-to-school drove up costs. In contrast, early winter spending dipped sharply, perhaps due to pre-holiday bulk purchases or cutbacks.
+* **Category and Sub-Category Trends:** The top expense areas were a mix of essentials (e.g., Bills, Car, Health) and lifestyle (e.g., Entertainment, Retail & Grocery). Sub-categories like Maintenance, Music, and Eating Out showed clear overspending, while others like Rent remained consistent or were under-allocated—indicating mixed financial discipline.
 
 # Challenges I Faced
 
 This project was not without its challenges, but each obstacle provided valuable learning opportunities that strengthened both my technical and analytical skills:
 
-- **Data Inconsistencies**: Handling missing, duplicated, or inconsistent entries required careful attention and thorough data-cleaning techniques to maintain the integrity of the analysis.
+* **Data Inconsistencies**: Handling missing, duplicated, or inconsistent entries required careful attention and thorough data-cleaning techniques to maintain the integrity of the analysis.
 
-- **Complex Data Visualization**: Designing visualizations that were not only accurate but also intuitive and visually engaging proved challenging—especially when trying to represent multi-dimensional data in a clear, impactful way.
+* **Complex Data Visualization:** Translating multi-dimensional financial data into clear, engaging visuals was a key challenge. Balancing accuracy with clarity required careful selection of chart types, aggregation levels, and formatting to ensure insights were both digestible and actionable.
 
-- **Balancing Breadth and Depth**: Deciding how deep to go into each analysis, while still keeping a broad overview of the job market landscape, required constant judgment to avoid losing focus or missing key insights.
+* **Balancing Breadth and Depth:** Navigating the trade-off between detailed analysis and a comprehensive overview required constant judgment. I had to ensure each deep dive added value without losing sight of broader financial patterns or overlooking key trends.
 
-- **Tool Familiarity Gaps**: As someone new to the tech and data field, I occasionally encountered roadblocks related to unfamiliar Python functions or visualization libraries, which required extra time for self-directed learning and troubleshooting.
+* **Complex SQL querying and logic**: I utilized advanced SQL features such as CTEs, window functions, and CASE statements to perform intricate calculations and data classifications. Precision in these queries was crucial for correct results.
 
-- **Interpretation Bias**: Making sure my conclusions were based on data—not assumptions—was an important discipline, especially when patterns seemed to align with what I expected. Cross-checking insights helped maintain objectivity.
-
-- **Time Management**: Working through a full analysis pipeline—data collection, cleaning, analysis, visualization, and interpretation—required careful planning to avoid getting stuck too long on any single stage.
-
+* **Defining Financial Categories Requires Assumptions:** Since spending priorities vary by individual, I had to apply generalized assumptions to distinguish between essential and non-essential expenses. This classification was based on typical needs and transaction context, but personal interpretation may lead to different categorizations.
 # Conclusion
 
-This exploration into the data analyst job market has been incredibly informative, highlighting the critical skills and trends that shape this evolving field. The insights I gained not only deepened my technical expertise in Python, data manipulation, and visualization but also clarified the strategic importance of aligning technical skills with real-world market demand.
-
-As someone new to the tech and data industry, this project gave me the confidence that I’m heading in the right direction—especially by choosing to focus on Python, a highly demanded and versatile language, instead of less-requested tools like R. It also helped me understand the growing relevance of cloud-based technologies such as Snowflake, BigQuery, and Azure, which offer strong salary potential and are becoming increasingly valuable in modern data environments.
-
-Looking forward, once I’ve gained more hands-on experience as a data analyst, I intend to tailor my learning toward both tools required by my future employer and high-impact, specialized skills like those used in big data and cloud platforms.
-
-This project serves as a solid foundation for future explorations and underscores the importance of continuous learning, skill adaptability, and proactive market analysis for long-term success in the data field.
+This financial budgeting project successfully provided a comprehensive analysis of personal financial data from 2024 to 2025, offering invaluable insights into income trends, spending habits, and overall financial health. Through meticulous data cleaning and sophisticated SQL-based exploratory data analysis, it became clear how critical data accuracy is for reliable insights. The project illuminated monthly cash flow dynamics, distinguished between essential and non-essential expenditures, and crucially identified periods of deficit where spending outpaced income. Ultimately, this endeavor showcased the power of data analysis in transforming raw financial transactions into actionable intelligence, empowering more informed budgeting decisions and fostering greater financial awareness.
