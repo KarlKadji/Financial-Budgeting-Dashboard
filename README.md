@@ -35,6 +35,7 @@ For my deep dive into the financial budgeting data, I harnessed the power of sev
     - **Slicers**
     - **Drill-Downs/Drill-Through**
     - **Interactive Visualizations**
+Since I do not currently have Power BI services, you may view my dashboard here: [Financial Budgeting Dashboard)](img)
 
 
 # Data Preparation and Cleanup
