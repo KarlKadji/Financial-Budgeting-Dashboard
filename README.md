@@ -28,6 +28,13 @@ For my deep dive into the financial budgeting data, I harnessed the power of sev
   - **Joins**
 
  - **Power BI**: Served as the primary tool for data visualization.
+    - **Data Loading from Sources**
+    - **DAX**
+    - **Power Query**
+    - **Data Modeling**
+    - **Slicers**
+    - **Drill-Downs/Drill-Through**
+    - **Interactive Visualizations**
 
 
 # Data Preparation and Cleanup
