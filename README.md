@@ -122,9 +122,9 @@ order by month;
 ```
 
 ### Results
-![Monthly Trend of Income and Expenses](3_Project/images/skill_demand_all_data_roles.png)
+![Monthly Trend of Income and Expenses](img/Monthly_Income_vs_Expenses.png)
 
-*Table visualizing the monthly trend of income, expenses and savings*
+*Bar CHart visualizing the monthly trend of income, expenses, and savings*
 
 ### Insights
 
@@ -192,9 +192,9 @@ ORDER BY i.month;
 
 ### Results
 
-![Essential vs Non-Essential Spending Percentages](3_Project/images/top_skills_trend.png)
+![Essential vs Non-Essential Spending Percentages](img/Essential_vs_Non-Essential_Expenses.png)
 
-*Line graph visualizing the monthly percentage of essential and non-essential spending compared to monthly income*
+*Line and clustered column chart visualizing the monthly percentage of essential and non-essential spending compared to monthly income*
 
 ### Insights
 * **On average, approximately 27.46% of your monthly income goes towards non-essential spending.**
@@ -233,10 +233,15 @@ limit 5;
 
 ### Results
 
-![Salary Distribution in Canada](3_Project/images/salary_distibution_in_canada.png)
+![Sources of Expenses](img/Top_5_Expenses.png)
+
+*Horizontal bar chart visualizing the Top 6 highest expenses*
 
 
-*Box plot visualizing the salary distribution for various data tech positions in Canada in 2023*
+![Seasonal Expenses](img/Seasonal_Expenses.png)
+
+
+*Pie chart visualizing the distribution of expenses per season*
 
 ### Insights
 * Top spending categories were Bills, Retail and Grocery, Car, Entertainment, and Health, indicating essential and lifestyle-related expenses dominate the budget.
@@ -279,13 +284,6 @@ FROM (
 GROUP BY year, week_number, week_start
 ORDER BY year, week_number;
 ```
-
-### Results
-
-![Salary Distribution in Canada](3_Project/images/salary_distibution_in_canada.png)
-
-
-*Box plot visualizing the salary distribution for various data tech positions in Canada in 2023*
 
 ### Insights
 
@@ -335,10 +333,10 @@ select * from income2 where category = 'Debt';
 
 ### Results
 
-![Most Optimal Skills for Data Analysts in Canada](3_Project/images/optimal_skills.png)
+![Sources of Income](img/Income_Trends_by_Source.png)
 
 
-*Scatter Plot visualizing the most optimal skills for data analysts categorized by technology in Canada in 2023*
+*Line graph visualizing the income trends by source*
 
 ### Insights
 
